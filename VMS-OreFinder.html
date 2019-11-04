@@ -8,39 +8,67 @@
     body {
         font-size: 30px;
         font-family: "Trebuchet Ms";
-        color: #aaaaaa;
+        color: #d5f2e3;
         background-image: url("https://media.discordapp.net/attachments/273092524162416640/595483626385178646/Vortrex_wallpapper_1.jpg?width=1616&height=910");
         background-position: top left;
         background-size: cover;
         background-repeat: no-repeat;
     }
-    p {font-family: "Roboto Light"}
-    input[type=text] {font-size: 25px; width: 500px}
-    input[type=number] {font-size: 25px; width: 90px}
-</style>
-<body>
-<h1 style="font-size: 150%">VMS ore finder: find your ore! v0.2.0</h1> <br>
+        p {font-family: "Roboto Light"}
+        input {border-radius: 0; background: rgba(50,50,50,0.70); border: 3px black}
+        input:focus {background: rgba(50,50,50,0.85)}
+        input[type=text] {font-size: 25px; width: 500px;}
+        input[type=number] {font-size: 25px; width: 90px; -moz-appearance: textfield }
+    </style>
+    <body>
+        <div style="display: block">
+            <img src="https://auth-media.s3.amazonaws.com/media/organization_940/logo.png" style="float: left; height: 100px; padding-right: 20px">
+            <h1 style="font-size: 150%; padding-bottom: 25px; padding-top: 30px; display: block"> VMS Tools: find your ore! v1.0.0 </h1>
+        </div>
 
-<form style="padding: 10px 0 0 10px" onsubmit="calculate()">
-    <p>First Scan:</p>
-        <input type="text" id="firstCoordinates" required="required" placeholder="::pos{}">
-        <input type="number" id="firstRadius" required="required" min="0" max="450" placeholder="Radius"> <br/> <br/>
+        <form style="padding: 10px 10px 100px 10px; width: 650px; float: left" onsubmit="calculate()">
+        <div style="display: block; padding-bottom: 50px; width: 650px; float: left">
+            <label>First Scan:<br/></label>
+                <input type="text"    id="1stCoo"   required                   placeholder = "::pos{}">
+                <input type="number"  id="1srR"     required min="0" max="450" placeholder = "Radius" >
+        </div>
 
-    <p>Second Scan:</p>
-        <input type="text" id="secondCoordinates" required="required" placeholder="::pos{}">
-        <input type="number" id="secondRadius" required="required" min="0" max="450" placeholder="Radius"> <br/> <br/>
+        <div style="display: block; padding-bottom: 50px; width: 650px; float: left">
+            <label>Second Scan:<br/></label>
+                <input type="text"    id="2ndCoo"   required                   placeholder = "::pos{}">
+                <input type="number"  id="2ndR"     required min="0" max="450" placeholder = "Radius" >
+        </div>
 
-    <p>Third Scan:</p>
-        <input type="text" id="thirdCoordinates" required="required" placeholder="::pos{}">
-        <input type="number" id="thirdRadius" required="required" min="0" max="450" placeholder="Radius"> <br/> <br/>
+        <div style="display: block; padding-bottom: 25px; width: 650px; float: left">
+            <label>Third Scan:<br/></label>
+                <input type="text"    id="3rdCoo"   required                   placeholder = "::pos{}">
+                <input type="number"  id="3rdR"     required min="0" max="450" placeholder = "Radius" >
+        </div>
 
-    <input type="submit" value="Submit">
-</form>
+        <input type="submit" value="Submit" style="background: #303030; padding: 8px 8px 8px 8px; border: 5px black; color: #d5f2e3"/>
+        <output></output>
+    </form>
 
-<div id="Warning" style="display: block; float: bottom; background: rgba(20,20,20,0.7); position: fixed; bottom: 0; left: 0; right: 0">
-    <div class="notice-text" style="display: block; float: left; padding: 8px 0 8px 50px; margin-right: 80px ">
-        <a style="color: darkred;"> Warning: </a> <a style="font-size: 75%"> This is property of the Vortrex Mining and Science Inc. only made accessible to our Alpha Team.
-            <br/>Do not copy or distribute this code or share the link.</a>
+    <div style="width: 650px; float: left; padding:4px 8px 8px 0">
+    <div style="background: #424242">
+        <a style="color: black; font-size: 40px">How to use:</a>
+    </div>
+    <div style="background: rgba(84,94,86,0.8); font-size: 80%">
+        <p style="margin-bottom: 20px; margin-top: 0; padding-top: 10px"> -Run around until the Scanner detects an ore Vein. </p>
+        <p style="padding-bottom: 5px"> -Copy/Paste your current coordinates into the text field and write the distance to the ore into the field beneath </p>
+        <p style="padding-bottom: 5px"> -Repeat this three times in three different directions, skipping a few Scans before the next entry. </p>
+        <p style="padding-bottom: 5px"> -If everything is filled in, click submit. If everything worked out, the coordinates will be copied into your clipboard. </p>
+        <p style="padding-bottom: 5px"> -Paste them into the in-game chat and set a bookmark there. </p>
+    </div>
+</div>
+
+    <div id="Warning" style="display: block; float: bottom; background: rgba(20,20,20,0.7); position: fixed; bottom: 0; left: 0; right: 0">
+        <div class="notice-text" style="display: block; float: left; padding: 8px 0 8px 50px; margin-right: 80px ">
+        <a style="color: #ba2d0b;"> Warning: </a>
+        <a style="font-size: 75%">
+            This is property of the Vortrex Mining and Science Inc. only made accessible to our Alpha Team.
+            <br/> Do not copy or distribute this code or share the link.
+        </a>
     </div>
     <div class="notice-link" style="display: block; float: right; margin-right: 30px; margin-top: 25px">
         <button type="button" style="alignment: center" onclick="collapse()"> OK </button>
@@ -48,7 +76,7 @@
     </div>
 </div>
 
-<script>
+<script >
     /*
     *Author: Will_i_craft
     *written: 26.08.2019
@@ -56,13 +84,15 @@
     *Synopsis: Calculates the position of the ore.
     */
      function calculate() {
-         //getting the coordinate string and parsing it to
+         //todo: rewrite the comments with coherent language
+
+         //getting the coordination string and parsing it to
          //Format: ::pos{Dimension, Object, x, y, z} example: ::pos{0,2,33.0624,89.7918,300.6377}
          let inp;
          try {
-             inp = [document.getElementById("firstCoordinates").value.substr(6, inputCoordinates[0].length).split(","),
-                    document.getElementById("secondCoordinates").value.substr(6, inputCoordinates[1].length).split(","),
-                    document.getElementById("thirdCoordinates").value.substr(6, inputCoordinates[2].length).split(",")];
+             inp = [document.getElementById("1stCoo")  .value.substr(6, this.length).split(","),
+                    document.getElementById("2ndCoo") .value.substr(6, this.length).split(","),
+                    document.getElementById("3rdCoo")  .value.substr(6, this.length).split(",")];
          } catch (e) {alert("Format of Coordinates incompatible. Please check input"); return; }
 
          let coords = [ {Dim: inp[0][0],   obj: inp[0][1],   x: inp[0][2],     y: inp[0][3],   z: inp[0][4]},
@@ -70,9 +100,9 @@
                         {Dim: inp[2][0],   obj: inp[2][1],   x: inp[2][2],     y: inp[2][3],   z: inp[2][4]}];
 
 
-         let radii =[document.getElementById("firstRadius").value,
-                    document.getElementById("secondRadius").value,
-                    document.getElementById("thirdRadius").value];
+         let radii =[document.getElementById("1stR").value,
+                     document.getElementById("2ndR").value,
+                     document.getElementById("3rdR").value];
 
         /*
         * Calculation of the coordinates
@@ -88,28 +118,46 @@
         let alpha =   Math.atan((coords[1].y - coords[0].y) / (coords[1].x - coords[0].x))
                     - Math.atan((coords[2].y - coords[0].y) / (coords[2].x - coords[0].x));
 
-        let ab =      Math.sqrt((coords[1].x - coords[0].x)**2 + (coords[1].y + coords[0].y)**2);
+        let ac =      Math.sqrt((coords[2].x - coords[0].x)**2 + (coords[2].y + coords[0].y)**2);
 
-        let ycalc = Math.sin(alpha) * ab - coords[0].y;
+        let ycalc = Math.sin(alpha) * ac;
 
         //fracabc calculates the fraction of the ore between
         //fracabc = (r0^2 - r2^2 + (x2 - x0)^2 + ycalc^2 - 2*(x2-x0)*fracab) / 2*ycalc;
         let fracabc = (radii[0]**2 - radii[2]**2 + (coords[2].x - coords[0].x)**2 + ycalc**2 - 2 * (coords[2].x - coords[0].x) * fracab) / (2 * ycalc);
 
-        let distX;
-        let distY;
+        //calculating the ores position relative to point 1
+        let alphaOre = Math.atan((coords[1].y - coords[0].y) / (coords[1].x - coords[0].x)) + Math.atan(fracabc/fracab);
+        let vectOre = Math.sqrt(fracab**2 + fracabc**2);
 
+        let distX = Math.sin(alphaOre) * vectOre;
+        let distY = Math.cos(alphaOre) * vectOre;
+
+        //distZ = √(r1^2 - x^2 - y^2
+        let distZ = Math.sqrt(radii[0]**2 - distX**2 - distY**2);
+
+        //calculating the actual coordinates of the ore
         let oreX = coords[0].x + distX;
         let oreY = coords[0].x + distY;
-        //z = √(r1^2 - x^2 - y^2
-        //todo: two possible answers. Evaluate with second Sphere
-        let oreZ = Math.sqrt(radii[0]**2 - oreX**2 - oreY**2) * 1000;
 
+        let oreZ;
+        // The square root from distance of the ore to point 1 minus the radius 1 should be 0 if it were 100% accurate.
+        // Since it is calculated with assumptions made by the user a deviation of 0.02km (=20m) is acceptable
+        if (Math.sqrt(coords[1].x - oreX)**2 + (coords[1].y - oreY)**2 + (coords[1].z - (coords[0].z + distZ))**2 - radii[1] > .02 ) {
+            oreZ = coords[0].z + distZ;
+        } else if (Math.sqrt(coords[1].x - oreX)**2 + (coords[1].y - oreY)**2 + (coords[1].z - (coords[0].z + distZ))**2 - radii[1] > .02 ) {
+            oreZ = coords[0].z - distZ;
+        } else {alert("Calculation to inaccurate"); return;}
 
-        //todo: refactor output string
+        let output = "  ::pos{" + coords[0].Dim   + ","
+                                + coords[1].obj   + ","
+                                + oreX.toFixed(4) + ","
+                                + oreY.toFixed(4) + ","
+                                + oreZ.toFixed(2) + "}";
 
-        let output = "::pos{" + coords[0].Dim + "," + coords[1].obj + "," + oreX.toFixed(4) + "," + oreY.toFixed(4)  + "," + oreZ.toFixed(2) + "}";
-
+        document.getElementById("result");
+        document.
+        document.execCommand("copy");
         console.log(output);
         alert(output);
     }
