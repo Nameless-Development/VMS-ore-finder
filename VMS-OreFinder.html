@@ -20,147 +20,264 @@
         input[type=text] {font-size: 25px; width: 500px;}
         input[type=number] {font-size: 25px; width: 90px; -moz-appearance: textfield }
     </style>
-    <body>
-        <div style="display: block">
-            <img src="https://auth-media.s3.amazonaws.com/media/organization_940/logo.png" style="float: left; height: 100px; padding-right: 20px">
-            <h1 style="font-size: 150%; padding-bottom: 25px; padding-top: 30px; display: block"> VMS Tools: find your ore! v1.0.0 </h1>
-        </div>
+<body>
+    <div style="display: block">
+        <img src="https://auth-media.s3.amazonaws.com/media/organization_940/logo.png" style="float: left; height: 100px; padding-right: 20px">
+        <h1 style="font-size: 150%; padding-bottom: 25px; padding-top: 30px; display: block"> VMS Tools: find your ore! v0.2.0 </h1>
+    </div>
 
-        <form style="padding: 10px 10px 100px 10px; width: 650px; float: left" onsubmit="calculate()">
+    <div style="padding: 10px 10px 100px 10px; width: 650px; float: left" onsubmit="exec()">
         <div style="display: block; padding-bottom: 50px; width: 650px; float: left">
             <label>First Scan:<br/></label>
-                <input type="text"    id="1stCoo"   required                   placeholder = "::pos{}">
-                <input type="number"  id="1srR"     required min="0" max="450" placeholder = "Radius" >
+                <input type="text"    id="1stPing"   required                   placeholder = "::pos{}">
+                <input type="number"  id="1stR"     required min="0" max="450" placeholder = "Radius" >
         </div>
 
         <div style="display: block; padding-bottom: 50px; width: 650px; float: left">
             <label>Second Scan:<br/></label>
-                <input type="text"    id="2ndCoo"   required                   placeholder = "::pos{}">
-                <input type="number"  id="2ndR"     required min="0" max="450" placeholder = "Radius" >
+                <input type="text"    id="2ndPing"   required                   placeholder = "::pos{}">
+                <input type="number"  id="2ndR"      required min="0" max="450" placeholder = "Radius" >
         </div>
 
         <div style="display: block; padding-bottom: 25px; width: 650px; float: left">
             <label>Third Scan:<br/></label>
-                <input type="text"    id="3rdCoo"   required                   placeholder = "::pos{}">
+                <input type="text"    id="3rdPing"   required                   placeholder = "::pos{}">
                 <input type="number"  id="3rdR"     required min="0" max="450" placeholder = "Radius" >
         </div>
 
-        <input type="submit" value="Submit" style="background: #303030; padding: 8px 8px 8px 8px; border: 5px black; color: #d5f2e3"/>
-        <output></output>
-    </form>
+        <button t onclick="exec()" type="button"style="background: #303030; padding: 8px 8px 8px 8px; border: 5px black; color: #d5f2e3">Submit</button>
+        <p id="result"></p>
+    </div>
 
     <div style="width: 650px; float: left; padding:4px 8px 8px 0">
-    <div style="background: #424242">
-        <a style="color: black; font-size: 40px">How to use:</a>
+        <div style="background: #424242">
+            <a style="color: black; font-size: 40px">How to use:</a>
+        </div>
+        <div style="background: rgba(84,94,86,0.8); font-size: 80%">
+            <p style="margin-bottom: 20px; margin-top: 0; padding-top: 10px"> -Run around until the Scanner detects an ore Vein. </p>
+            <p style="padding-bottom: 5px"> -Copy/Paste your current coordinates into the text field and write the estimated distance to the ore into the box on the right </p>
+            <p style="padding-bottom: 5px"> -Repeat this three times in three different directions, skipping a few Scans before the next entry. Try to use altering hights to make the result more accurate</p>
+            <p style="padding-bottom: 5px"> -If everything is filled in, click submit. If everything worked out, the coordinates will be copied into your clipboard. </p>
+            <p style="padding-bottom: 5px"> -Paste them into the in-game chat and set a bookmark there. </p>
+        </div>
     </div>
-    <div style="background: rgba(84,94,86,0.8); font-size: 80%">
-        <p style="margin-bottom: 20px; margin-top: 0; padding-top: 10px"> -Run around until the Scanner detects an ore Vein. </p>
-        <p style="padding-bottom: 5px"> -Copy/Paste your current coordinates into the text field and write the distance to the ore into the field beneath </p>
-        <p style="padding-bottom: 5px"> -Repeat this three times in three different directions, skipping a few Scans before the next entry. </p>
-        <p style="padding-bottom: 5px"> -If everything is filled in, click submit. If everything worked out, the coordinates will be copied into your clipboard. </p>
-        <p style="padding-bottom: 5px"> -Paste them into the in-game chat and set a bookmark there. </p>
-    </div>
-</div>
 
     <div id="Warning" style="display: block; float: bottom; background: rgba(20,20,20,0.7); position: fixed; bottom: 0; left: 0; right: 0">
         <div class="notice-text" style="display: block; float: left; padding: 8px 0 8px 50px; margin-right: 80px ">
-        <a style="color: #ba2d0b;"> Warning: </a>
-        <a style="font-size: 75%">
-            This is property of the Vortrex Mining and Science Inc. only made accessible to our Alpha Team.
-            <br/> Do not copy or distribute this code or share the link.
-        </a>
+            <a style="color: #ba2d0b;"> Warning: </a>
+            <a style="font-size: 75%">
+                This is property of the Vortrex Mining and Science Inc. only made accessible to our Alpha Team.
+                <br/> Do not copy or distribute this code or share the link.
+            </a>
+        </div>
+        <div class="notice-link" style="display: block; float: right; margin-right: 30px; margin-top: 25px">
+            <button type="button" style="alignment: center; margin-bottom: 10px" onclick="collapse()"> OK </button>
+            <script>function collapse() {document.getElementById("Warning").style.display = "none";} </script>
+        </div>
     </div>
-    <div class="notice-link" style="display: block; float: right; margin-right: 30px; margin-top: 25px">
-        <button type="button" style="alignment: center" onclick="collapse()"> OK </button>
-        <script>function collapse() {document.getElementById("Warning").style.display = "none";} </script>
-    </div>
-</div>
 
-<script >
-    /*
-    *Author: Will_i_craft
-    *written: 26.08.2019
-    *last edited: 02.09.2019
-    *Synopsis: Calculates the position of the ore.
-    */
-     function calculate() {
-         //todo: rewrite the comments with coherent language
-
-         //getting the coordination string and parsing it to
-         //Format: ::pos{Dimension, Object, x, y, z} example: ::pos{0,2,33.0624,89.7918,300.6377}
-         let inp;
-         try {
-             inp = [document.getElementById("1stCoo")  .value.substr(6, this.length).split(","),
-                    document.getElementById("2ndCoo") .value.substr(6, this.length).split(","),
-                    document.getElementById("3rdCoo")  .value.substr(6, this.length).split(",")];
-         } catch (e) {alert("Format of Coordinates incompatible. Please check input"); return; }
-
-         let coords = [ {Dim: inp[0][0],   obj: inp[0][1],   x: inp[0][2],     y: inp[0][3],   z: inp[0][4]},
-                        {Dim: inp[1][0],   obj: inp[1][1],   x: inp[1][2],     y: inp[1][3],   z: inp[1][4]},
-                        {Dim: inp[2][0],   obj: inp[2][1],   x: inp[2][2],     y: inp[2][3],   z: inp[2][4]}];
-
-
-         let radii =[document.getElementById("1stR").value,
-                     document.getElementById("2ndR").value,
-                     document.getElementById("3rdR").value];
-
-        /*
-        * Calculation of the coordinates
-        * This calculation is based on the math used by the GPS System.
-        * Source: https://journals.sagepub.com/doi/full/10.5772/63246
-        */
-
-        // fracab = (r0^2 - r1^2 + (x1-x0)^2)/2*(x1-x0)
-        // fracab calculates the fraction between point a and b
-        let fracab = (radii[0]**2 - radii[1]**2 + (coords[1].x - coords[0].x)**2) / (2*(coords[1].x - coords[0].x));
-
-        //ycalc = value needed to calculate fracabc
-        let alpha =   Math.atan((coords[1].y - coords[0].y) / (coords[1].x - coords[0].x))
-                    - Math.atan((coords[2].y - coords[0].y) / (coords[2].x - coords[0].x));
-
-        let ac =      Math.sqrt((coords[2].x - coords[0].x)**2 + (coords[2].y + coords[0].y)**2);
-
-        let ycalc = Math.sin(alpha) * ac;
-
-        //fracabc calculates the fraction of the ore between
-        //fracabc = (r0^2 - r2^2 + (x2 - x0)^2 + ycalc^2 - 2*(x2-x0)*fracab) / 2*ycalc;
-        let fracabc = (radii[0]**2 - radii[2]**2 + (coords[2].x - coords[0].x)**2 + ycalc**2 - 2 * (coords[2].x - coords[0].x) * fracab) / (2 * ycalc);
-
-        //calculating the ores position relative to point 1
-        let alphaOre = Math.atan((coords[1].y - coords[0].y) / (coords[1].x - coords[0].x)) + Math.atan(fracabc/fracab);
-        let vectOre = Math.sqrt(fracab**2 + fracabc**2);
-
-        let distX = Math.sin(alphaOre) * vectOre;
-        let distY = Math.cos(alphaOre) * vectOre;
-
-        //distZ = √(r1^2 - x^2 - y^2
-        let distZ = Math.sqrt(radii[0]**2 - distX**2 - distY**2);
-
-        //calculating the actual coordinates of the ore
-        let oreX = coords[0].x + distX;
-        let oreY = coords[0].x + distY;
-
-        let oreZ;
-        // The square root from distance of the ore to point 1 minus the radius 1 should be 0 if it were 100% accurate.
-        // Since it is calculated with assumptions made by the user a deviation of 0.02km (=20m) is acceptable
-        if (Math.sqrt(coords[1].x - oreX)**2 + (coords[1].y - oreY)**2 + (coords[1].z - (coords[0].z + distZ))**2 - radii[1] > .02 ) {
-            oreZ = coords[0].z + distZ;
-        } else if (Math.sqrt(coords[1].x - oreX)**2 + (coords[1].y - oreY)**2 + (coords[1].z - (coords[0].z + distZ))**2 - radii[1] > .02 ) {
-            oreZ = coords[0].z - distZ;
-        } else {alert("Calculation to inaccurate"); return;}
-
-        let output = "  ::pos{" + coords[0].Dim   + ","
-                                + coords[1].obj   + ","
-                                + oreX.toFixed(4) + ","
-                                + oreY.toFixed(4) + ","
-                                + oreZ.toFixed(2) + "}";
-
-        document.getElementById("result");
-        document.
-        document.execCommand("copy");
-        console.log(output);
-        alert(output);
-    }
-</script>
 </body>
+<script>
+
+/*
+*Author: Will_i_craft
+*written: 26.08.2019
+*last edited: 02.09.2019
+*Synopsis: Calculates the position of the ore.
+*/
+
+function exec()
+{
+    //getting the coordination string and parsing it
+    //Format: ::pos{Dimension, Object, x, y, z} example: ::pos{0,2,33.0624,89.7918,300.6377}
+
+    let coordinateInput =
+        [ document.getElementById("1stPing").value
+        , document.getElementById("2ndPing").value
+        , document.getElementById("3rdPing").value
+        ];
+
+    let radii =
+        [ document.getElementById("1stR").value
+        , document.getElementById("2ndR").value
+        , document.getElementById("3rdR").value
+        ];
+
+    let regexpCoordinates = /::pos{(\d+),(\d+),(\d+(?:\.\d+)?),(\d+(?:\.\d+)?),(\d+(?:\.\d+)?)}/;
+
+    if ( !regexpCoordinates.test(coordinateInput[0]) ) { alert("First coordiante input has wrong format. Make sure you have copy pasted the in game Coordinates."); return; }
+    if ( !regexpCoordinates.test(coordinateInput[1]) ) { alert("Second coordiante input has wrong format. Make sure you have copy pasted the in game Coordinates."); return; }
+    if ( !regexpCoordinates.test(coordinateInput[2]) ) { alert("Third coordiante input has wrong format. Make sure you have copy pasted the in game Coordinates."); return; }
+
+
+    let coordinates =
+       [ regexpCoordinates.exec(coordinateInput[0]).map(parseFloat)
+       , regexpCoordinates.exec(coordinateInput[1]).map(parseFloat)
+       , regexpCoordinates.exec(coordinateInput[2]).map(parseFloat)
+       ]
+       .map(a => [a[1], a[2], a[3], a[4], a[5] * 1000]);
+
+    let p1 = {x: coordinates[0][2], y: coordinates[0][3], z: coordinates[0][4], r:radii[0]};
+    let p2 = {x: coordinates[1][2], y: coordinates[1][3], z: coordinates[1][4], r:radii[1]};
+    let p3 = {x: coordinates[2][2], y: coordinates[2][3], z: coordinates[2][4], r:radii[2]};
+
+    let ore = trilaterate(p1, p2, p3, true);
+
+    if (ore == null) { alert("Couldn't determine ore location for unknown reason. Please try again with new mesurments"); return;}
+
+    alert( "::pos{"
+            + coordinates[0][0] + ","
+            + coordinates[0][1] + ","
+            + ore.x.toFixed(4) + ","
+            + ore.y.toFixed(4) + ","
+            + (ore.z / 1000).toFixed(4) + "}"
+            );
+}
+
+
+
+
+/**
+    * JavaScript implementation of Trilateration to find the position of a
+    * point (P4) from three known points in 3D space (P1, P2, P3) and their
+    * distance from the point in question.
+    *
+    * The solution used here is based on the derivation found on the Wikipedia
+    * page of Trilateration: https://en.wikipedia.org/wiki/Trilateration
+    *
+    * This library does not need any 3rd party tools as all the non-basic
+    * geometric functions needed are declared inside the trilaterate() function.
+    *
+    * See the GitHub page: https://github.com/gheja/trilateration.js
+*/
+
+/**
+    * Calculates the coordinates of a point in 3D space from three known points
+    * and the distances between those points and the point in question.
+    *
+    * If no solution found then null will be returned.
+    *
+    * If two solutions found then both will be returned, unless the fourth
+    * parameter (return_middle) is set to true when the middle of the two solution
+    * will be returned.
+    *
+    * @param {Object} p1 Point and distance: { x, y, z, r }
+    * @param {Object} p2 Point and distance: { x, y, z, r }
+    * @param {Object} p3 Point and distance: { x, y, z, r }
+    * @param {bool} return_middle If two solution found then return the center of them
+    * @return {Object|Array|null} { x, y, z } or [ { x, y, z }, { x, y, z } ] or null
+*/
+function trilaterate(p1, p2, p3, return_middle)
+{
+    // based on: https://en.wikipedia.org/wiki/Trilateration
+
+    // some additional local functions declared here for
+    // scalar and vector operations
+
+    function sqr(a)
+    {
+        return a * a;
+    }
+
+    function norm(a)
+    {
+        return Math.sqrt(sqr(a.x) + sqr(a.y) + sqr(a.z));
+    }
+
+    function dot(a, b)
+    {
+        return a.x * b.x + a.y * b.y + a.z * b.z;
+    }
+
+    function vector_subtract(a, b)
+    {
+        return {
+            x: a.x - b.x,
+            y: a.y - b.y,
+            z: a.z - b.z
+        };
+    }
+
+    function vector_add(a, b)
+    {
+        return {
+            x: a.x + b.x,
+            y: a.y + b.y,
+            z: a.z + b.z
+        };
+    }
+
+    function vector_divide(a, b)
+    {
+        return {
+            x: a.x / b,
+            y: a.y / b,
+            z: a.z / b
+        };
+    }
+
+    function vector_multiply(a, b)
+    {
+        return {
+            x: a.x * b,
+            y: a.y * b,
+            z: a.z * b
+        };
+    }
+
+    function vector_cross(a, b)
+    {
+        return {
+            x: a.y * b.z - a.z * b.y,
+            y: a.z * b.x - a.x * b.z,
+            z: a.x * b.y - a.y * b.x
+        };
+    }
+
+    var ex, ey, ez, i, j, d, a, x, y, z, b, p4;
+
+    ex = vector_divide(vector_subtract(p2, p1), norm(vector_subtract(p2, p1)));
+
+    i = dot(ex, vector_subtract(p3, p1));
+    a = vector_subtract(vector_subtract(p3, p1), vector_multiply(ex, i));
+    ey = vector_divide(a, norm(a));
+    ez =  vector_cross(ex, ey);
+    d = norm(vector_subtract(p2, p1));
+    j = dot(ey, vector_subtract(p3, p1));
+
+    x = (sqr(p1.r) - sqr(p2.r) + sqr(d)) / (2 * d);
+    y = (sqr(p1.r) - sqr(p3.r) + sqr(i) + sqr(j)) / (2 * j) - (i / j) * x;
+
+    b = sqr(p1.r) - sqr(x) - sqr(y);
+
+    // floating point math flaw in IEEE 754 standard
+    // see https://github.com/gheja/trilateration.js/issues/2
+    if (Math.abs(b) < 0.0000000001)
+    {
+        b = 0;
+    }
+
+    z = Math.sqrt(b);
+
+    // no solution found
+    if (isNaN(z))
+    {
+        return null;
+    }
+
+    a = vector_add(p1, vector_add(vector_multiply(ex, x), vector_multiply(ey, y)))
+    p4a = vector_add(a, vector_multiply(ez, z));
+    p4b = vector_subtract(a, vector_multiply(ez, z));
+
+    if (z == 0 || return_middle)
+    {
+        return a;
+    }
+    else
+    {
+        return [ p4a, p4b ];
+    }
+}
+
+</script>
 </html>
